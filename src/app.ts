@@ -10,9 +10,4 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
-app.post("/", (req, res) => {
-  const { title, description } = req.body;
-  
-});
-
 export default app;
