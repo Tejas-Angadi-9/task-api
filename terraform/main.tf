@@ -61,12 +61,13 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 }
 
 resource "aws_lambda_function" "task_api" {
-  filename      = "../lambda.zip"
-  function_name = "task-api"
-  role          = aws_iam_role.lambda_role.arn
-  handler       = "dist/lambda.handler"
-  runtime       = "nodejs20.x"
-  timeout       = 30
+  filename         = "../lambda.zip"
+  function_name    = "task-api"
+  role             = aws_iam_role.lambda_role.arn
+  handler          = "dist/lambda.handler"
+  runtime          = "nodejs20.x"
+  timeout          = 30
+  source_code_hash = filebase64sha256("../lambda.zip")
 
   environment {
     variables = {
