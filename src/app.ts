@@ -1,12 +1,18 @@
 import express from "express";
-
-const PORT: number = 3000;
+import taskRoutes from "./routes/tasks";
 
 const app = express();
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+
+app.use(express.json());
+app.use("/tasks", taskRoutes);
+
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
 });
 
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
+app.post("/", (req, res) => {
+  const { title, description } = req.body;
+  
 });
+
+export default app;
