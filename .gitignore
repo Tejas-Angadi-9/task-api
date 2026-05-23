@@ -1,7 +1,11 @@
 node_modules
 dist
+lambda.zip
+
 .terraform/
 *.tfstate
 *.tfstate.backup
 .terraform.tfstate.lock.info
 *.tfstate.lock.info
+
+.env
