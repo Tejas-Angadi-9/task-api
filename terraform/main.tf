@@ -13,7 +13,7 @@ provider "aws" {
 
 resource "aws_dynamodb_table" "tasks" {
   name         = "tasks"
-  billing_mode = PAY_PER_REQUEST
+  billing_mode = "PAY_PER_REQUEST"
   hash_key     = "id"
 
   attribute {
@@ -105,3 +105,6 @@ resource "aws_lambda_permission" "api_gateway" {
   source_arn    = "${aws_apigatewayv2_api.task_api.execution_arn}/*/*"
 }
 
+output "api_url" {
+  value = aws_apigatewayv2_stage.task_api.invoke_url
+}
