@@ -1,19 +1,13 @@
 import { Router } from "express";
 import { ITask } from "../interfaces/task.interface";
+import * as dynamoService from "../services/dynamo.service";
 
 const taskRouter = Router();
 
-// Mock Tasks DB
-let tasks: ITask[] = [];
-
-// Helper function
-const findTask = (id: string): ITask | undefined => {
-  const foundTask = tasks.find((task: ITask) => task.id === id);
-  return foundTask;
-};
-
 // Routes with logic
-taskRouter.get("/", (req, res) => {
+taskRouter.get("/", async (req, res) => {
+  const tasks: ITask[] = await dynamoService.getAllTasks();
+
   return res.status(200).json({
     success: true,
     tasks,
@@ -21,7 +15,7 @@ taskRouter.get("/", (req, res) => {
   });
 });
 
-taskRouter.post("/", (req, res) => {
+taskRouter.post("/", async (req, res) => {
   const { title, description } = req.body;
   const newTask: ITask = {
     id: Date.now().toString(),
@@ -30,7 +24,7 @@ taskRouter.post("/", (req, res) => {
     createdAt: new Date().toISOString(),
   };
 
-  tasks.push(newTask);
+  await dynamoService.createTask(newTask);
 
   return res.status(201).json({
     sucess: true,
@@ -39,9 +33,9 @@ taskRouter.post("/", (req, res) => {
   });
 });
 
-taskRouter.get("/:id", (req, res) => {
+taskRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
-  const foundTask: ITask | undefined = findTask(id);
+  const foundTask: ITask | null = await dynamoService.getTaskById(id);
 
   if (!foundTask) {
     return res.status(404).json({
@@ -57,10 +51,9 @@ taskRouter.get("/:id", (req, res) => {
   });
 });
 
-taskRouter.delete("/:id", (req, res) => {
+taskRouter.delete("/:id", async (req, res) => {
   const { id } = req.params;
-
-  const foundTask: ITask | undefined = findTask(id);
+  const foundTask = await dynamoService.getTaskById(id);
 
   if (!foundTask) {
     return res.status(404).json({
@@ -69,7 +62,8 @@ taskRouter.delete("/:id", (req, res) => {
     });
   }
 
-  tasks = tasks.filter((task) => task.id !== id);
+  await dynamoService.deleteTask(id);
+
   return res.status(200).json({
     success: true,
     task: foundTask,
