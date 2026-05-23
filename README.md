@@ -1,10 +1,11 @@
 # Task API
 
-![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?style=flat&logo=node.js&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat&logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-24.x-339933?style=flat&logo=node.js&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript.x-3178C6?style=flat&logo=typescript&logoColor=white)
 ![AWS Lambda](https://img.shields.io/badge/AWS-Lambda-FF9900?style=flat&logo=awslambda&logoColor=white)
 ![DynamoDB](https://img.shields.io/badge/AWS-DynamoDB-4053D6?style=flat&logo=amazondynamodb&logoColor=white)
-![Terraform](https://img.shields.io/badge/Terraform-1.x-7B42BC?style=flat&logo=terraform&logoColor=white)
+![Terraform](https://img.shields.io/badge/Terraform.x-7B42BC?style=flat&logo=terraform&logoColor=white)
+![AWS SDK](https://img.shields.io/badge/AWS_SDK-v3-FF9900?style=flat&logo=amazonaws&logoColor=white)
 
 A serverless REST API for managing tasks, built on AWS using Node.js and TypeScript.
 
