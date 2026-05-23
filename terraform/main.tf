@@ -36,3 +36,20 @@ resource "aws_iam_role" "lambda_role" {
     }]
   })
 }
+
+resource "aws_iam_role_policy" "lambda_dynamodb" {
+  name = "lambda_dynamodb_policy"
+  role = aws_iam_role.lambda_role.id
+  policy = jsonencode({
+    version = "2012-10-17"
+    statement = [{
+      effect = "Allow"
+      Action = [
+        "dynamodb:PutItem",
+        "dynamodb:GetItem",
+        "dynamodb:Scan",
+        "dynamodb:DeleteItem"
+      ]
+    }]
+  })
+}
