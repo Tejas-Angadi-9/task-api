@@ -8,10 +8,10 @@ import {
 } from "@aws-sdk/lib-dynamodb";
 import { ITask } from "../interfaces/task.interface";
 
-const client: DynamoDBClient = new DynamoDBClient({ region: "ap-south-1" });
+const client: DynamoDBClient = new DynamoDBClient({ region: process.env.AWS_REGION || "ap-south-1" });
 const docClient: DynamoDBDocumentClient = DynamoDBDocumentClient.from(client);
 
-const TABLE_NAME: string = "tasks";
+const TABLE_NAME: string = process.env.TABLE_NAME || "tasks";
 
 export const createTask = async (task: ITask): Promise<ITask> => {
   const params = {
